@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from '../../components/Header/Header';
 
 import {
   Container,
@@ -8,6 +9,7 @@ import {
 const List: React.FC = () => {
   return (
     <Container>
+      <Header title="Our People" />
       <Text>
         List
       </Text>

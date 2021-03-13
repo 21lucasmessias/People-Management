@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from '../../components/Header/Header';
 
 import {
   Container,
@@ -8,6 +9,7 @@ import {
 const Home: React.FC = () => {
   return (
     <Container>
+      <Header title="Statistics" />
       <Text>Teste</Text>
     </Container>
   );
