@@ -1,7 +1,9 @@
 import React from 'react';
-import { Text } from 'react-native';
 
-import { Container } from './Home.styles';
+import {
+  Container,
+  Text,
+} from './Home.styles';
 
 const Home: React.FC = () => {
   return (
