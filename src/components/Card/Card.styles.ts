@@ -16,10 +16,12 @@ export const Container = styled.TouchableOpacity`
 
 export const TextContainer = styled.View`
   padding-right: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 `;
 
 export const Text = styled.Text`
-  font-family: Roboto;
+  font-family: 'RobotoMono_400Regular';
   font-style: normal;
   font-weight: normal;
   font-size: 10px;
@@ -32,7 +34,7 @@ export const Text = styled.Text`
 `;
 
 export const TextInfo = styled.Text`
-  font-family: Roboto;
+  font-family: 'RobotoMono_400Regular';
   font-style: normal;
   font-weight: normal;
   font-size: 16px;

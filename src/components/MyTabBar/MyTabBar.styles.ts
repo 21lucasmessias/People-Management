@@ -19,7 +19,7 @@ export const TouchableOpacity = styled.TouchableOpacity`
 `;
 
 export const Text = styled.Text`
-  font-family: Roboto;
+  font-family: 'RobotoMono_400Regular';
   font-style: normal;
   font-weight: 500;
   font-size: 14px;

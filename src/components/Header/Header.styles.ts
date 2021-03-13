@@ -18,5 +18,5 @@ export const Container = styled.View`
 export const Text = styled.Text`
   color: #FFFFFF;
   font-size: 24px;
-  font-family: monospace;
+  font-family: 'RobotoMono_400Regular';
 `;
