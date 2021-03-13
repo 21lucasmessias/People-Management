@@ -51,7 +51,7 @@ export const Photo = styled.Image`
   margin-left: 16px;
   margin-right: 12px;
 
-  border-radius: 100;
+  border-radius: 50px;
 `;
 
 export const Info = styled.View`
