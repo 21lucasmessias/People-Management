@@ -48,8 +48,8 @@ type Person {
 }
 
 type Query {
-  people: [Person!]!
-  person(name: String, birthday: DateInput, cpf: String, rg: String, street: String, district: String, city: String, state: String, cep: String): [Person]!
+  persons(sortField: String!, limit: Int!, initValue: String, name: String, birthday: DateInput, cpf: String, rg: String, street: String, district: String, city: String, state: String, cep: String): [Person]!
+  person(name: String, birthday: DateInput, cpf: String, rg: String, street: String, district: String, city: String, state: String, cep: String): Person
 }
 
 type Mutation {
