@@ -1,0 +1,57 @@
+input DateInput {
+  day: Int!
+  month: Int!
+  year: Int!
+}
+
+input NameInput {
+  first: String!
+  last: String!
+}
+
+input AdressInput {
+  street: String!
+  number: String!
+  district: String!
+  city: String!
+  state: String!
+  cep: String!
+}
+
+type Date {
+  day: Int!
+  month: Int!
+  year: Int!
+}
+
+type Name {
+  first: String!
+  last: String!
+}
+
+type Adress {
+  street: String!
+  number: String!
+  district: String!
+  city: String!
+  state: String!
+  cep: String!
+}
+
+type Person {
+  _id: ID!
+  name: Name!
+  birthday: Date!
+  cpf: String!
+  rg: String!
+  adress: Adress!
+}
+
+type Query {
+  people: [Person!]!
+  person(name: String, birthday: DateInput, cpf: String, rg: String, street: String, district: String, city: String, state: String, cep: String): [Person]!
+}
+
+type Mutation {
+  registerPerson(name: NameInput!, birthday: DateInput!, cpf: String!, rg: String!, adress: AdressInput!): Person
+}
