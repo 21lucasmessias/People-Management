@@ -9,6 +9,11 @@ import {
   RobotoMono_400Regular,
 } from '@expo-google-fonts/roboto-mono';
 
+import {
+  ApolloProvider
+} from '@apollo/client';
+import { client } from './src/config/server';
+
 export default function App() {
   let [fontsLoaded] = useFonts({
     RobotoMono_400Regular,
@@ -18,9 +23,11 @@ export default function App() {
     return <View />
   } else {
     return (
-      <PaperProvider>
-        <Routes />
-      </PaperProvider>
+      <ApolloProvider client={client}>
+        <PaperProvider>
+          <Routes />
+        </PaperProvider>
+      </ApolloProvider>
     );
   }
 }
