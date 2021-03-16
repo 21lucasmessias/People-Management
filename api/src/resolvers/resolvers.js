@@ -4,6 +4,7 @@ module.exports = {
   Query: {
     persons: (_, {
       sortField,
+      decrescent,
       limit,
       initValue,
       name,
@@ -30,10 +31,16 @@ module.exports = {
         ]
       }, null, {
         limit: limit,
-        sort: sortField
+        sort: [sortField.map((field) => ([field, decrescent ? -1 : 1]))]
       });
 
-      return initValue ? query.gt(sortField, initValue) : query;
+      if (initValue) {
+        sortField.forEach((field, index) => {
+          query.gt(field, initValue[index])
+        })
+      }
+
+      return query;
     },
 
     person: (_,
