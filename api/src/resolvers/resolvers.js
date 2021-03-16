@@ -6,7 +6,7 @@ module.exports = {
       sortField,
       decrescent,
       limit,
-      initValue,
+      offset,
       name,
       birthday,
       cpf,
@@ -16,32 +16,23 @@ module.exports = {
       city,
       state,
       cep,
-    }) => {
-      let query = Person.find({
-        $and: [
-          { "name.first": name ? { $regex: '.*' + name + '.*' } : { $exists: true } },
-          { "birthday": birthday ? birthday : { $exists: true } },
-          { "cpf": cpf ? { $regex: '.*' + cpf + '.*' } : { $exists: true } },
-          { "rg": rg ? { $regex: '.*' + rg + '.*' } : { $exists: true } },
-          { "adress.street": street ? { $regex: '.*' + street + '.*' } : { $exists: true } },
-          { "adress.district": district ? { $regex: '.*' + district + '.*' } : { $exists: true } },
-          { "adress.city": city ? { $regex: '.*' + city + '.*' } : { $exists: true } },
-          { "adress.state": state ? { $regex: '.*' + state + '.*' } : { $exists: true } },
-          { "adress.cep": cep ? { $regex: '.*' + cep + '.*' } : { $exists: true } },
-        ]
-      }, null, {
-        limit: limit,
-        sort: [sortField.map((field) => ([field, decrescent ? -1 : 1]))]
-      });
-
-      if (initValue) {
-        sortField.forEach((field, index) => {
-          query.gt(field, initValue[index])
-        })
-      }
-
-      return query;
-    },
+    }) => Person.find({
+      $and: [
+        { "name.first": name ? { $regex: '.*' + name + '.*' } : { $exists: true } },
+        { "birthday": birthday ? birthday : { $exists: true } },
+        { "cpf": cpf ? { $regex: '.*' + cpf + '.*' } : { $exists: true } },
+        { "rg": rg ? { $regex: '.*' + rg + '.*' } : { $exists: true } },
+        { "adress.street": street ? { $regex: '.*' + street + '.*' } : { $exists: true } },
+        { "adress.district": district ? { $regex: '.*' + district + '.*' } : { $exists: true } },
+        { "adress.city": city ? { $regex: '.*' + city + '.*' } : { $exists: true } },
+        { "adress.state": state ? { $regex: '.*' + state + '.*' } : { $exists: true } },
+        { "adress.cep": cep ? { $regex: '.*' + cep + '.*' } : { $exists: true } },
+      ]
+    }, null, {
+      limit: limit,
+      sort: [sortField.map((field) => ([field, decrescent ? -1 : 1]))],
+      skip: offset
+    }),
 
     person: (_,
       {
@@ -66,7 +57,7 @@ module.exports = {
           { "adress.state": state ? { $regex: '.*' + state + '.*' } : { $exists: true } },
           { "adress.cep": cep ? { $regex: '.*' + cep + '.*' } : { $exists: true } },
         ]
-      })
+      }),
   },
 
   Mutation: {

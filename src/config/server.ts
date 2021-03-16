@@ -26,6 +26,19 @@ const link = ApolloLink.from([
 ])
 
 export const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          persons: {
+            keyArgs: false,
+            merge(existing = [], incoming) {
+              return [...existing, ...incoming];
+            },
+          }
+        }
+      }
+    }
+  }),
   link: link,
 })
