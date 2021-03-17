@@ -44,6 +44,29 @@ export const TextInput = styled(Input).attrs({
   height: 55px;
 `;
 
+export const DateView = styled.View`
+  height: 55px;
+  border-bottom-width: 1px;
+  border-bottom-color: #476A6F;
+  padding-left: 12px;
+  justify-content: space-evenly;
+`;
+
+export const DateText = styled.Text`
+  font-size: 16px;
+`;
+
+type iDateLabel = {
+  empty: boolean;
+}
+
+export const DateLabel = styled.Text<iDateLabel>`
+  font-family: sans-serif; 
+  font-size: ${(props) => props.empty ? '16px' : '12px'};
+  color: ${(props) => props.empty ? 'rgba(0, 0, 0, 0.55)' : '#476A6F'};
+  top: ${(props) => props.empty ? '13px' : '0px'};
+`;
+
 export const Buttons = styled.View`
   flex-direction: row;
   justify-content: space-evenly;
@@ -54,5 +77,5 @@ export const Buttons = styled.View`
 export const Button = styled(Butt).attrs({
   color: '#476A6F'
 })`
-  width: 30%;
+  width: 45%;
 `;
