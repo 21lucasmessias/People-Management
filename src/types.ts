@@ -23,3 +23,10 @@ export type iPeople = {
 export type serverResponsePeople = {
   persons: Array<iPeople>
 }
+
+export type iCEP = {
+  bairro: string,
+  localidade: string,
+  logradouro: string,
+  uf: string,
+};

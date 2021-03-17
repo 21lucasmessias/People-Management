@@ -1,29 +1,35 @@
 import React, { useState } from 'react';
+import { Alert } from 'react-native';
+
+import { useMutation } from '@apollo/client';
+import { REGISTER_PERSON } from '../../GraphQL/mutation';
+
 import Header from '../../components/Header/Header';
+import DatePicker from '../../components/DatePicker/DatePicker';
 
-import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
-
+import { iCEP } from '../../types';
 
 import {
   Container,
   Form,
   Section,
-  CityState,
-  Label,
+  NameView,
+  AdressView,
+  LabelInput,
   TextInput,
-  Buttons,
+  ButtonsView,
   Button,
-  DateView,
-  DateText,
-  DateLabel
 } from './Register.styles';
 
 const Register: React.FC = () => {
-  const [name, setName] = useState('');
-  const [nameError, setNameError] = useState(false);
+  const [nameFirst, setNameFirst] = useState('');
+  const [nameFirstError, setNameFirstError] = useState(false);
+
+  const [nameLast, setNameLast] = useState('');
+  const [nameLastError, setNameLastError] = useState(false);
 
   const [date, setDate] = useState<Date | null>(null);
-  const [formatedDate, setFormatedData] = useState('');
+  const [dateError, setDateError] = useState(false);
   const [showDate, setShowDate] = useState(false);
 
   const [CPF, setCPF] = useState('');
@@ -32,49 +38,166 @@ const Register: React.FC = () => {
   const [RG, setRG] = useState('');
   const [RGError, setRGError] = useState(false);
 
-  const onChangeDate = (event: Event, selectedDate: Date | undefined) => {
-    const newDate = selectedDate || date;
+  const [CEP, setCEP] = useState('');
+  const [CEPError, setCEPError] = useState(false);
+  const [adressNumber, setAdressNumber] = useState('');
+  const [adressNumberError, setAdressNumberError] = useState(false);
+  const [street, setStreet] = useState('');
+  const [district, setDistrict] = useState('');
+  const [city, setCity] = useState('');
+  const [adressState, setAdressState] = useState('');
+
+  const [formPerson, { data }] = useMutation(REGISTER_PERSON);
+
+  const verifyCEP = () => {
+    var cep = CEP.replace(/\D/g, '');
+
+    if (cep != "") {
+      var regExpCEP = /^[0-9]{8}$/;
+
+      return regExpCEP.test(cep);
+    }
+
+    return false;
+  }
+
+  const handleClearInputs = () => {
+    setNameFirst('');
+    setNameFirstError(false);
+    setNameLast('');
+    setNameLastError(false);
+    setDate(null);
+    setDateError(false);
     setShowDate(false);
-    setDate(newDate);
-    setFormatedData(newDate ? `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()}` : '')
-  };
+    setCPF('');
+    setCPFError(false);
+    setRG('');
+    setRGError(false);
+    setCEP('');
+    setCEPError(false);
+    setStreet('');
+    setAdressNumber('');
+    setAdressNumberError(false);
+    setDistrict('');
+    setCity('');
+    setAdressState('');
+  }
+
+  const verifyEmptyFields = () => {
+    setNameFirstError(!nameFirst);
+    setNameLastError(!nameLast);
+    setDateError(!date);
+    setCPFError(!CPF);
+    setRGError(!RG);
+    setCEPError(!verifyCEP() || !CEP);
+    setAdressNumberError(!adressNumber);
+
+    return !nameFirst || !nameLast || !date || !CPF || !RG || (!verifyCEP() || !CEP) || !adressNumber;
+  }
+
+  const handleCEPChange = () => {
+
+    if (verifyCEP()) {
+      setCEPError(false);
+
+      fetch(`https://viacep.com.br/ws/${CEP.replace(/\D/g, '')}/json/`)
+        .then((res) => {
+          res.json().then((res: iCEP | undefined) => {
+            if (res) {
+              setDistrict(res.bairro);
+              setCity(res.localidade);
+              setStreet(res.logradouro);
+              setAdressState(res.uf);
+            } else {
+              setDistrict('');
+              setCity('');
+              setStreet('');
+              setAdressState('');
+            }
+          });
+        })
+    } else {
+      setCEPError(true);
+      setDistrict('');
+      setCity('');
+      setStreet('');
+      setAdressState('');
+
+      Alert.alert('CEP', 'Invalid CEP', [{ text: "OK" }], { cancelable: false });
+    }
+  }
+
+  const handleConfirmInputs = () => {
+    let alertMessage = 'Registry problems!';
+
+    if (!verifyEmptyFields()) {
+      formPerson({
+        variables: {
+          name: {
+            first: nameFirst,
+            last: nameLast
+          },
+          birthday: {
+            day: date?.getDate(),
+            month: date?.getMonth(),
+            year: date?.getFullYear()
+          },
+          cpf: CPF,
+          rg: RG,
+          adress: {
+            street: street,
+            number: adressNumber,
+            district: district,
+            city: city,
+            state: adressState,
+            cep: CEP
+          }
+        }
+      });
+
+      alertMessage = 'Successfully registered!';
+
+      handleClearInputs();
+    }
+
+    Alert.alert('Registration', alertMessage, [{ text: "Cancel", style: "cancel" }, { text: "OK" }], { cancelable: false });
+  }
 
   return (
     <Container>
-      {showDate && (
-        <DateTimePicker
-          mode='date'
-          value={date ? date : new Date()}
-          onChange={onChangeDate}
-        />)
-      }
       <Header title="Register" />
       <Form>
         <Section>
-          <Label>Profile</Label>
-          <TextInput
-            label="Name"
-            value={name}
-            keyboardType='default'
-            onChangeText={text => setName(text)}
-            error={nameError}
-            style={{ backgroundColor: "rgb(242,242,242)" }}
-            theme={{ colors: { primary: "#476A6F" } }}
-          />
+          <LabelInput>Profile</LabelInput>
 
+          <NameView>
+            <TextInput
+              label="First Name"
+              value={nameFirst}
+              keyboardType='default'
+              onChangeText={text => setNameFirst(text)}
+              error={nameFirstError}
+              style={{ backgroundColor: "rgb(242,242,242)" }}
+              theme={{ colors: { primary: "#476A6F" } }}
+            />
+            <TextInput
+              label="Last Name"
+              value={nameLast}
+              keyboardType='default'
+              onChangeText={text => setNameLast(text)}
+              error={nameLastError}
+              style={{ backgroundColor: "rgb(242,242,242)" }}
+              theme={{ colors: { primary: "#476A6F" } }}
+            />
+          </NameView>
 
-          <DateView onTouchEndCapture={() => setShowDate(true)}>
-            <DateLabel empty={!showDate && date == null}>Birthday</DateLabel>
-            <DateText>
-              {formatedDate}
-            </DateText>
-          </DateView>
+          <DatePicker dateError={dateError} date={date} setDate={setDate} showDate={showDate} setShowDate={setShowDate} />
 
           <TextInput
             label="CPF"
             value={CPF}
             keyboardType='numeric'
-            onChangeText={CPF => setCPF(CPF)}
+            onChangeText={text => setCPF(text)}
             error={CPFError}
             style={{ backgroundColor: "rgb(242,242,242)" }}
             theme={{ colors: { primary: "#476A6F" } }}
@@ -83,49 +206,69 @@ const Register: React.FC = () => {
             label="RG"
             value={RG}
             keyboardType='numeric'
-            onChangeText={RG => setRG(RG)}
+            onChangeText={text => setRG(text)}
             error={RGError}
             style={{ backgroundColor: "rgb(242,242,242)" }}
             theme={{ colors: { primary: "#476A6F" } }}
           />
         </Section>
+
         <Section>
-          <Label>Adress</Label>
-          <TextInput
-            label="CEP"
-            value={CPF}
-            keyboardType='numeric'
-            onChangeText={CPF => setCPF(CPF)}
-            error={CPFError}
-            style={{ backgroundColor: "rgb(242,242,242)" }}
-            theme={{ colors: { primary: "#476A6F" } }}
-          />
-          <CityState>
+          <LabelInput>Adress</LabelInput>
+
+          <AdressView>
+            <TextInput
+              label="CEP"
+              value={CEP}
+              keyboardType='numeric'
+              onChangeText={text => setCEP(text)}
+              error={CEPError}
+              style={{ backgroundColor: "rgb(242,242,242)", width: '45%' }}
+              theme={{ colors: { primary: "#476A6F" } }}
+              onEndEditing={handleCEPChange}
+            />
+            <TextInput
+              label="Number"
+              value={adressNumber}
+              keyboardType='numeric'
+              onChangeText={text => setAdressNumber(text)}
+              error={adressNumberError}
+              style={{ backgroundColor: "rgb(242,242,242)", width: '45%' }}
+              theme={{ colors: { primary: "#476A6F" } }}
+            />
+          </AdressView>
+
+          <AdressView>
             <TextInput
               label="City"
-              value={CPF}
+              value={city}
               keyboardType='numeric'
-              onChangeText={CPF => setCPF(CPF)}
-              error={CPFError}
               style={{ backgroundColor: "rgb(242,242,242)", width: '45%' }}
               disabled
             />
             <TextInput
               label="State"
-              value={CPF}
+              value={adressState}
               keyboardType='numeric'
-              onChangeText={CPF => setCPF(CPF)}
-              error={CPFError}
               style={{ backgroundColor: "rgb(242,242,242)", width: '45%' }}
               theme={{ colors: { primary: "#476A6F" } }}
               disabled
             />
-          </CityState>
+          </AdressView>
+
+          <TextInput
+            label="Street"
+            value={street}
+            keyboardType='numeric'
+            style={{ backgroundColor: "rgb(242,242,242)" }}
+            disabled
+          />
         </Section>
-        <Buttons>
-          <Button mode="contained" onPress={() => { }}>Clear</Button>
-          <Button mode="contained" onPress={() => { }}>Confirm</Button>
-        </Buttons>
+
+        <ButtonsView>
+          <Button mode="contained" onPress={handleClearInputs}>Clear</Button>
+          <Button mode="contained" onPress={handleConfirmInputs}>Confirm</Button>
+        </ButtonsView>
       </Form>
     </Container>
   );
