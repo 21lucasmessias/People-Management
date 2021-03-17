@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { useQuery, resetCaches } from '@apollo/client';
 import { GET_PERSONS } from '../../GraphQL/query';
@@ -14,6 +14,7 @@ import {
   Text,
 } from './List.styles';
 import { Button } from 'react-native-paper';
+import { ListContext } from '../../contexts/ListContext';
 
 const List: React.FC = () => {
   const [sortField, setSortField] = useState<[string | number]>(["name"]);
@@ -25,6 +26,12 @@ const List: React.FC = () => {
       offset: 0,
     }
   });
+
+  const { setClient } = useContext(ListContext);
+
+  useEffect(() => {
+    setClient(client);
+  }, [client])
 
   if (loading) {
     return (

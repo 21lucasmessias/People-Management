@@ -3,11 +3,12 @@ import 'react-native-gesture-handler';
 
 import { StatusBar } from 'expo-status-bar';
 
+import ListContextProvider from './contexts/ListContext';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 
 import Home from './pages/Home/Home';
 import Register from './pages/Register/Register';
@@ -18,7 +19,7 @@ const { Navigator, Screen } = createBottomTabNavigator();
 
 const Routes: React.FC = () => {
   return (
-    <>
+    <ListContextProvider>
       <StatusBar style="auto" />
       <NavigationContainer >
         <Navigator tabBar={(props) => <MyTabBar {...props} />} >
@@ -32,7 +33,6 @@ const Routes: React.FC = () => {
               ),
             }}
           />
-
           <Screen
             name="List"
             component={List}
@@ -55,7 +55,7 @@ const Routes: React.FC = () => {
 
         </Navigator>
       </NavigationContainer>
-    </>
+    </ListContextProvider>
   );
 }
 

@@ -1,8 +1,9 @@
-import React, { createContext, ReactNode, useState } from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 import { Alert } from 'react-native';
 
 import { useMutation } from '@apollo/client';
 import { REGISTER_PERSON } from '../GraphQL/mutation';
+import { ListContext } from "./ListContext";
 
 type iRegisterContextProvider = {
   children: ReactNode;
@@ -49,6 +50,7 @@ export const RegisterContext = createContext({} as iRegisterContext);
 
 const RegisterContextProvider: React.FC<iRegisterContextProvider> = ({ children }) => {
   const [formPerson] = useMutation(REGISTER_PERSON);
+  const { client } = useContext(ListContext);
 
   const [nameFirst, setNameFirst] = useState('');
   const [nameFirstError, setNameFirstError] = useState(false);
@@ -142,6 +144,10 @@ const RegisterContextProvider: React.FC<iRegisterContextProvider> = ({ children 
       alertMessage = 'Successfully registered!';
 
       handleClearInputs();
+
+      if (client) {
+        client.cache.reset();
+      }
     }
 
     Alert.alert('Registration', alertMessage, [{ text: "Cancel", style: "cancel" }, { text: "OK" }], { cancelable: false });
