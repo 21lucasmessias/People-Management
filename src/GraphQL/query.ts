@@ -10,6 +10,15 @@ query($sortField: [String!]!, $decrescent: Boolean, $limit: Int!, $offset: Int!)
     }
     birthday
     cpf
+    rg
+    adress{
+      street
+      number
+      district
+      city
+      state
+      cep
+    }
   }
 }`;
 

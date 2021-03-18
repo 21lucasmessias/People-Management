@@ -10,6 +10,8 @@ export const Container = styled.View`
   margin-right: 23px;
   margin-top: 12px;
 
+  padding-left: 20px;
+
   height: 121px;
 
   flex-direction: row;
@@ -17,50 +19,9 @@ export const Container = styled.View`
   align-items: center;
 `
 
-export const TextContainer = styled.View`
-  padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-`;
-
-export const Text = styled.Text`
-  font-family: 'RobotoMono_400Regular';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 10px;
-  line-height: 16px;
-
-  letter-spacing: 1.25px;
-  text-transform: uppercase;
-
-  color: #000000;
-`;
-
-export const TextInfo = styled.Text`
-  font-family: 'RobotoMono_400Regular';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 16px;
-
-  letter-spacing: 1.25px;
-  text-transform: uppercase;
-
-  color: #519E8A;
-`;
-
-
-export const Photo = styled.Image`
-  height: 80px;
-  width: 80px;
-  margin-left: 16px;
-  margin-right: 12px;
-
-  border-radius: 50px;
-`;
-
 export const Info = styled.View`
   flex-direction: column;
+  padding-left: 20px;
 `;
 
 export const AgeCPF = styled.View`

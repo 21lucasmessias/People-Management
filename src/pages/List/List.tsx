@@ -5,20 +5,28 @@ import { ListContext } from '../../contexts/ListContext';
 import { useQuery } from '@apollo/client';
 import { GET_PERSONS } from '../../GraphQL/query';
 
-import Header from '../../components/Header/Header';
-import Card from '../../components/Card/Card';
 import { Button } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/Feather'
 
-import { iPerson, serverResponsePerson } from '../../types';
+import Card from '../../components/Card/Card';
+
+import { iPerson, iStack, serverResponsePerson } from '../../types';
+import { StackScreenProps } from '@react-navigation/stack';
 
 import {
   Container,
   FlatList,
   Text,
-  FilterView
+  FilterView,
+  TouchableOpacity
 } from './List.styles';
+import { SharedElement } from 'react-navigation-shared-element';
 
-const List: React.FC = () => {
+
+type Props = StackScreenProps<iStack, 'List'>;
+
+const List: React.FC<Props> = ({ navigation }) => {
+  const { setClient } = useContext(ListContext);
   const [sortField, setSortField] = useState<[string | number]>(["name"]);
 
   const { error, loading, data, fetchMore, client } = useQuery(GET_PERSONS, {
@@ -29,12 +37,6 @@ const List: React.FC = () => {
     }
   });
 
-  const { setClient } = useContext(ListContext);
-
-  useEffect(() => {
-    setClient(client);
-  }, [client])
-
   const endReachedHandle = () => {
     fetchMore({
       variables: {
@@ -43,9 +45,12 @@ const List: React.FC = () => {
     })
   }
 
+  useEffect(() => {
+    setClient(client);
+  }, [client])
+
   return (
     <Container>
-      <Header title="Our People" />
       <Text>Order by</Text>
 
       <FilterView>
@@ -80,7 +85,7 @@ const List: React.FC = () => {
           <FlatList
             data={data ? (data as serverResponsePerson).persons : []}
             renderItem={({ item }) => (
-              <Card person={item as iPerson} />
+              <Card navigation={navigation} person={item as iPerson} />
             )}
             keyExtractor={(_, index) => index.toString()}
             refreshing
