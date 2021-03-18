@@ -1,12 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 
+import { ListContext } from '../../contexts/ListContext';
+
 import { useQuery } from '@apollo/client';
 import { GET_PERSONS } from '../../GraphQL/query';
 
 import Header from '../../components/Header/Header';
 import Card from '../../components/Card/Card';
+import { Button } from 'react-native-paper';
 
-import { iPeople, serverResponsePeople } from '../../types';
+import { iPerson, serverResponsePerson } from '../../types';
 
 import {
   Container,
@@ -14,8 +17,6 @@ import {
   Text,
   FilterView
 } from './List.styles';
-import { Button } from 'react-native-paper';
-import { ListContext } from '../../contexts/ListContext';
 
 const List: React.FC = () => {
   const [sortField, setSortField] = useState<[string | number]>(["name"]);
@@ -37,7 +38,7 @@ const List: React.FC = () => {
   const endReachedHandle = () => {
     fetchMore({
       variables: {
-        offset: (data as serverResponsePeople).persons.length
+        offset: (data as serverResponsePerson).persons.length
       }
     })
   }
@@ -77,8 +78,10 @@ const List: React.FC = () => {
           <Text>Error</Text>
         ) : (
           <FlatList
-            data={data ? (data as serverResponsePeople).persons : []}
-            renderItem={({ item }) => (<Card person={item as iPeople} />)}
+            data={data ? (data as serverResponsePerson).persons : []}
+            renderItem={({ item }) => (
+              <Card person={item as iPerson} />
+            )}
             keyExtractor={(_, index) => index.toString()}
             refreshing
             showsVerticalScrollIndicator={false}

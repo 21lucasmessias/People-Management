@@ -1,4 +1,4 @@
-export type iPeople = {
+export type iPerson = {
   name: {
     first: string,
     last: string
@@ -16,8 +16,8 @@ export type iPeople = {
   }
 }
 
-export type serverResponsePeople = {
-  persons: Array<iPeople>
+export type serverResponsePerson = {
+  persons: Array<iPerson>
 }
 
 export type iCEP = {
