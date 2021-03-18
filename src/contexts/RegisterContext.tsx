@@ -43,7 +43,10 @@ interface iRegisterContext {
   setRG: React.Dispatch<React.SetStateAction<string>>,
   RGError: boolean,
   handleClearInputs: () => void,
-  handleConfirmInputs: () => void
+  handleConfirmInputs: () => void,
+  registerAlert: boolean,
+  setRegisterAlert: React.Dispatch<React.SetStateAction<boolean>>,
+  messageAlert: string
 }
 
 export const RegisterContext = createContext({} as iRegisterContext);
@@ -71,6 +74,9 @@ const RegisterContextProvider: React.FC<iRegisterContextProvider> = ({ children 
   const [district, setDistrict] = useState('');
   const [city, setCity] = useState('');
   const [adressState, setAdressState] = useState('');
+
+  const [registerAlert, setRegisterAlert] = useState(false);
+  const [messageAlert, setMessageAlert] = useState('Registry problems!');
 
 
   function handleClearInputs() {
@@ -114,7 +120,7 @@ const RegisterContextProvider: React.FC<iRegisterContextProvider> = ({ children 
   }
 
   function handleConfirmInputs() {
-    let alertMessage = 'Registry problems!';
+    setMessageAlert('Registry problems!');
 
     if (!verifyEmptyFields()) {
       formPerson({
@@ -137,7 +143,7 @@ const RegisterContextProvider: React.FC<iRegisterContextProvider> = ({ children 
         }
       });
 
-      alertMessage = 'Successfully registered!';
+      setMessageAlert('Successfully registered!');
 
       handleClearInputs();
 
@@ -146,7 +152,7 @@ const RegisterContextProvider: React.FC<iRegisterContextProvider> = ({ children 
       }
     }
 
-    Alert.alert('Registration', alertMessage, [{ text: "Cancel", style: "cancel" }, { text: "OK" }], { cancelable: false });
+    setRegisterAlert(true);
   }
 
   return (
@@ -184,7 +190,10 @@ const RegisterContextProvider: React.FC<iRegisterContextProvider> = ({ children 
       setRG,
       RGError,
       handleClearInputs,
-      handleConfirmInputs
+      handleConfirmInputs,
+      registerAlert,
+      setRegisterAlert,
+      messageAlert
     }}>
       {children}
     </RegisterContext.Provider>

@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { Button as Butt } from 'react-native-paper';
+import { Snackbar } from 'react-native-paper';
 
 export const ButtonsView = styled.View`
   flex-direction: row;
@@ -13,4 +14,9 @@ export const Button = styled(Butt).attrs({
   mode: "contained"
 })`
   width: 45%;
+`;
+
+export const Alert = styled(Snackbar)`
+  top: -10px;
+  background-color: #476A6F;
 `;
