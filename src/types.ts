@@ -3,11 +3,7 @@ export type iPeople = {
     first: string,
     last: string
   },
-  birthday: {
-    day: number,
-    month: number,
-    year: number
-  },
+  birthday: number,
   cpf: string,
   rg: string,
   adress: {

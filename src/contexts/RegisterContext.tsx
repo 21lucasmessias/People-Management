@@ -123,11 +123,7 @@ const RegisterContextProvider: React.FC<iRegisterContextProvider> = ({ children 
             first: nameFirst,
             last: nameLast
           },
-          birthday: {
-            day: date?.getDate(),
-            month: date?.getMonth(),
-            year: date?.getFullYear()
-          },
+          birthday: (date as Date).getDate() + ((date as Date).getMonth() + 1) * 30 + (date as Date).getFullYear() * 365,
           cpf: CPF,
           rg: RG,
           adress: {

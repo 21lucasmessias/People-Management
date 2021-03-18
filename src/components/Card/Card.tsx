@@ -18,13 +18,17 @@ type iCard = {
 
 const Card: React.FC<iCard> = ({ person }) => {
 
-  const transformToAge = (year: number, month: number, day: number) => {
-    var today = new Date();
-    var birthday = new Date(year, month, day);
-    var age = today.getFullYear() - birthday.getFullYear();
-    var m = today.getMonth() - birthday.getMonth();
+  const transformToAge = (birthday: number) => {
+    const year = Math.floor(birthday / 365);
+    const month = Math.floor((birthday % 365) / 30);
+    const day = Math.floor((birthday % 365) % 30)
 
-    if (m < 0 || (m === 0 && today.getDate() < birthday.getDate())) {
+    var today = new Date();
+    var birthdayDate = new Date(year, month, day);
+    var age = today.getFullYear() - birthdayDate.getFullYear();
+    var m = today.getMonth() - birthdayDate.getMonth();
+
+    if (m < 0 || (m === 0 && today.getDate() < birthdayDate.getDate())) {
       age--;
     }
 
@@ -42,7 +46,7 @@ const Card: React.FC<iCard> = ({ person }) => {
         <AgeCPF>
           <TextContainer>
             <Text>Age</Text>
-            <TextInfo>{transformToAge(person.birthday.year, person.birthday.month, person.birthday.day)}</TextInfo>
+            <TextInfo>{transformToAge(person.birthday)}</TextInfo>
           </TextContainer>
           <TextContainer>
             <Text>CPF</Text>

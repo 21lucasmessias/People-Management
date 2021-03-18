@@ -30,7 +30,7 @@ module.exports = {
       ]
     }, null, {
       limit: limit,
-      sort: [sortField.map((field) => ([field, decrescent ? -1 : 1]))],
+      sort: [sortField.map((field) => ([field, decrescent ? (field == 'birthday' ? 1 : -1) : (field == 'birthday' ? -1 : 1)]))],
       skip: offset
     }),
 

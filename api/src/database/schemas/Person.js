@@ -5,11 +5,7 @@ const PersonSchema = new mongoose.Schema({
     first: String,
     last: String
   },
-  birthday: {
-    day: Number,
-    month: Number,
-    year: Number
-  },
+  birthday: Number,
   cpf: { type: String, unique: true, required: true },
   rg: { type: String, unique: true, required: true },
   adress: {

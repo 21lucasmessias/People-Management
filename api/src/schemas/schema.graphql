@@ -1,9 +1,3 @@
-input DateInput {
-  day: Int!
-  month: Int!
-  year: Int!
-}
-
 input NameInput {
   first: String!
   last: String!
@@ -16,12 +10,6 @@ input AdressInput {
   city: String!
   state: String!
   cep: String!
-}
-
-type Date {
-  day: Int!
-  month: Int!
-  year: Int!
 }
 
 type Name {
@@ -41,17 +29,17 @@ type Adress {
 type Person {
   _id: ID!
   name: Name!
-  birthday: Date!
+  birthday: Int!
   cpf: String!
   rg: String!
   adress: Adress!
 }
 
 type Query {
-  persons(sortField: [String!]!, decrescent:Boolean, limit: Int!, offset: Int!, name: String, birthday: DateInput, cpf: String, rg: String, street: String, district: String, city: String, state: String, cep: String): [Person]!
-  person(name: String, birthday: DateInput, cpf: String, rg: String, street: String, district: String, city: String, state: String, cep: String): Person
+  persons(sortField: [String!]!, decrescent:Boolean, limit: Int!, offset: Int!, name: String, birthday: Int, cpf: String, rg: String, street: String, district: String, city: String, state: String, cep: String): [Person]!
+  person(name: String, birthday: Int, cpf: String, rg: String, street: String, district: String, city: String, state: String, cep: String): Person
 }
 
 type Mutation {
-  registerPerson(name: NameInput!, birthday: DateInput!, cpf: String!, rg: String!, adress: AdressInput!): Person
+  registerPerson(name: NameInput!, birthday: Int, cpf: String!, rg: String!, adress: AdressInput!): Person
 }

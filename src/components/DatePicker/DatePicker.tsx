@@ -33,7 +33,7 @@ const DatePicker: React.FC<iDatePicker> = ({ date, setDate, showDate, setShowDat
       <DateView dateError={dateError} onTouchEndCapture={() => setShowDate(true)}>
         <DateLabel dateError={dateError} empty={!showDate && date == null}>Birthday</DateLabel>
         <DateText>
-          {date ? `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}` : ''}
+          {date ? `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}` : ''}
         </DateText>
       </DateView>
     </>
