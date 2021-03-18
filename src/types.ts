@@ -26,3 +26,8 @@ export type iCEP = {
   logradouro: string,
   uf: string,
 };
+
+export type iStack = {
+  List: undefined;
+  Details: { person: iPerson };
+}
