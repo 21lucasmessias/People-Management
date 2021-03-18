@@ -4,9 +4,6 @@ export const Container = styled.View`
   height: 90%;
 `;
 
-export const FlatList = styled.FlatList`
-`;
-
 export const Text = styled.Text`
   color: #476A6F;
   font-size: 12px;
@@ -22,14 +19,5 @@ export const FilterView = styled.View`
   padding-bottom: 10px;
 `;
 
-export const TouchableOpacity = styled.TouchableOpacity`
-  position: absolute;
-  top: -5px;
-  left: -35px;
-  background-color: #476A6F;
-  width: 35px;
-  height: 35px;
-  align-items: center;
-  justify-content: center;
-  border-bottom-right-radius: 15px;
+export const FlatList = styled.FlatList`
 `;

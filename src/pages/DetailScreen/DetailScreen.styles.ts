@@ -29,36 +29,3 @@ export const Info = styled.View`
   align-content: flex-start;
   
 `;
-
-export const TextContainer = styled.View`
-  padding-right: 12px;
-  padding-top: 8px;
-  margin-bottom: 16px;
-
-  width: 50%; 
-  align-items: flex-start;
-`;
-
-export const Text = styled.Text`
-  font-family: 'RobotoMono_400Regular';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 10px;
-  line-height: 16px;
-
-  letter-spacing: 1.25px;
-
-  color: #000000;
-`;
-
-export const TextInfo = styled.Text`
-  font-family: 'RobotoMono_400Regular';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 16px;
-
-  letter-spacing: 1.25px;
-
-  color: #519E8A;
-`;

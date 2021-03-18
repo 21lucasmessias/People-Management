@@ -6,7 +6,6 @@ import { useQuery } from '@apollo/client';
 import { GET_PERSONS } from '../../GraphQL/query';
 
 import { Button } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/Feather'
 
 import Card from '../../components/Card/Card';
 
@@ -17,11 +16,8 @@ import {
   Container,
   FlatList,
   Text,
-  FilterView,
-  TouchableOpacity
+  FilterView
 } from './List.styles';
-import { SharedElement } from 'react-navigation-shared-element';
-
 
 type Props = StackScreenProps<iStack, 'List'>;
 
@@ -45,6 +41,11 @@ const List: React.FC<Props> = ({ navigation }) => {
     })
   }
 
+  const filterButtonHandle = (field: string) => {
+    setSortField([field]);
+    client.cache.reset();
+  }
+
   useEffect(() => {
     setClient(client);
   }, [client])
@@ -54,24 +55,15 @@ const List: React.FC<Props> = ({ navigation }) => {
       <Text>Order by</Text>
 
       <FilterView>
-        <Button mode='outlined' onPress={() => {
-          setSortField(["name"]);
-          client.cache.reset();
-        }}>
+        <Button mode='outlined' onPress={() => filterButtonHandle("name")}>
           <Text>Name</Text>
         </Button>
 
-        <Button mode='outlined' onPress={() => {
-          setSortField(["cpf"]);
-          client.cache.reset();
-        }}>
+        <Button mode='outlined' onPress={() => filterButtonHandle("cpf")}>
           <Text>CPF</Text>
         </Button>
 
-        <Button mode='outlined' onPress={() => {
-          setSortField(["birthday"]);
-          client.cache.reset();
-        }}>
+        <Button mode='outlined' onPress={() => filterButtonHandle("birthday")}>
           <Text>Age</Text>
         </Button>
       </FilterView>

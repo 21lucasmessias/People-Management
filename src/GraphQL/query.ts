@@ -21,29 +21,3 @@ query($sortField: [String!]!, $decrescent: Boolean, $limit: Int!, $offset: Int!)
     }
   }
 }`;
-
-/*export const GET_PERSON = gql`
-query($sortFields: String!, $limit: Int!, $initValue: String) {
-  persons(sortField: $sortFields, limit: $limit, initValue: $initValue){
-    name {
-      first
-      last
-    }
-    birthday {
-      day
-      month
-      year
-    }
-    cpf
-    rg
-    adress{
-      street
-      number
-      district
-      city
-      state
-      cep
-    }
-  }
-}
-`;*/

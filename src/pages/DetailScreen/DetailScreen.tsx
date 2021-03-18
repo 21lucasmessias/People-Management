@@ -5,6 +5,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { SharedElement } from 'react-navigation-shared-element';
 
 import CardTextContainer from '../../components/TextContainer/TextContainer';
+import DetailContainer from '../../components/DetailContainer/DetailContainer';
 
 import {
   Container,
@@ -12,16 +13,13 @@ import {
   NameAgeView,
   InfoWrapper,
   Info,
-  Text,
-  TextInfo,
-  TextContainer,
 } from './DetailScreen.styles';
 
 import { iStack } from '../../types';
 
 type Props = StackScreenProps<iStack, 'Details'>;
 
-const DetailScreen: React.FC<Props> = ({ route, navigation }) => {
+const DetailScreen: React.FC<Props> = ({ route }) => {
   const { person } = route.params;
 
   const transformToAge = (birthday: number) => {
@@ -40,54 +38,32 @@ const DetailScreen: React.FC<Props> = ({ route, navigation }) => {
           <SharedElement id={`name${person.cpf}`}>
             <CardTextContainer title='Name' message={`${person.name.first} ${person.name.last}`} />
           </SharedElement>
+
           <SharedElement id={`age${person.cpf}`}>
             <CardTextContainer title='Age' message={`${transformToAge(person.birthday)}`} />
           </SharedElement>
         </NameAgeView>
       </MainInfo>
+
       <InfoWrapper>
         <Info>
-          <TextContainer>
-            <Text>RG</Text>
-            <TextInfo>{person.rg}</TextInfo>
-          </TextContainer>
-          <TextContainer>
-            <Text>CPF</Text>
-            <TextInfo>{person.cpf}</TextInfo>
-          </TextContainer>
+          <DetailContainer message='RG' title={person.rg} />
+          <DetailContainer message='CPF' title={person.cpf} />
         </Info>
 
         <Info>
-          <TextContainer>
-            <Text>CEP</Text>
-            <TextInfo>{person.adress.cep}</TextInfo>
-          </TextContainer>
-          <TextContainer>
-            <Text>Number</Text>
-            <TextInfo>{person.adress.number}</TextInfo>
-          </TextContainer>
+          <DetailContainer message='CEP' title={person.adress.cep} />
+          <DetailContainer message='Number' title={person.adress.number} />
         </Info>
 
         <Info>
-          <TextContainer>
-            <Text>City</Text>
-            <TextInfo>{person.adress.city}</TextInfo>
-          </TextContainer>
-          <TextContainer>
-            <Text>State</Text>
-            <TextInfo>{person.adress.state}</TextInfo>
-          </TextContainer>
+          <DetailContainer message='City' title={person.adress.city} />
+          <DetailContainer message='State' title={person.adress.state} />
         </Info>
 
         <Info>
-          <TextContainer>
-            <Text>District</Text>
-            <TextInfo>{person.adress.district}</TextInfo>
-          </TextContainer>
-          <TextContainer>
-            <Text>Street</Text>
-            <TextInfo>{person.adress.street}</TextInfo>
-          </TextContainer>
+          <DetailContainer message='District' title={person.adress.district} />
+          <DetailContainer message='Street' title={person.adress.street} />
         </Info>
       </InfoWrapper>
     </Container>
