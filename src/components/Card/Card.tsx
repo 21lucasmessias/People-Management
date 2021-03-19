@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-import { Image } from 'react-native';
+import { Image, Text } from 'react-native';
 
 import { StackNavigationProp } from '@react-navigation/stack'
 import { SharedElement } from 'react-navigation-shared-element';
@@ -14,12 +14,11 @@ import {
   AgeCPF
 } from './Card.styles'
 
-
-import { iPerson, iStack } from '../../types';
+import { iPerson, iStack } from '../../GraphQL/apolloComponents';
 
 type iCard = {
   person: iPerson,
-  navigation: StackNavigationProp<iStack, "List">
+  navigation: StackNavigationProp<iStack, "List">,
 }
 
 const Card: React.FC<iCard> = ({ person, navigation }) => {
@@ -29,7 +28,7 @@ const Card: React.FC<iCard> = ({ person, navigation }) => {
   }
 
   const handleOpenPerson = () => {
-    navigation.push('Details', { person });
+    navigation.navigate('Details', { person });
   }
 
   return (
@@ -44,10 +43,11 @@ const Card: React.FC<iCard> = ({ person, navigation }) => {
           </SharedElement>
           <AgeCPF>
             <SharedElement id={`age${person.cpf}`}>
-              <TextContainer title='Age' message={transformToAge(person.birthday).toString()} />
+              <TextContainer title='Age' message={transformToAge(person.birthday * -1).toString()} />
             </SharedElement>
             <TextContainer title='CPF' message={person.cpf} />
           </AgeCPF>
+          <Touchable onPress={() => { }}><Text>Delete</Text></Touchable>
         </Info>
       </Container>
 

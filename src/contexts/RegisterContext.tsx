@@ -1,9 +1,6 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
-import { Alert } from 'react-native';
-
-import { useMutation } from '@apollo/client';
-import { REGISTER_PERSON } from '../GraphQL/mutation';
-import { ListContext } from "./ListContext";
+import React, { createContext, ReactNode, useState } from "react";
+import { useRegisterPersonMutation } from "../GraphQL/apolloComponents";
+import { GET_PERSONS } from "../GraphQL/query";
 
 type iRegisterContextProvider = {
   children: ReactNode;
@@ -51,9 +48,9 @@ interface iRegisterContext {
 
 export const RegisterContext = createContext({} as iRegisterContext);
 
+
 const RegisterContextProvider: React.FC<iRegisterContextProvider> = ({ children }) => {
-  const [formPerson] = useMutation(REGISTER_PERSON);
-  const { client } = useContext(ListContext);
+  const [formPerson] = useRegisterPersonMutation();
 
   const [nameFirst, setNameFirst] = useState('');
   const [nameFirstError, setNameFirstError] = useState(false);
@@ -77,7 +74,6 @@ const RegisterContextProvider: React.FC<iRegisterContextProvider> = ({ children 
 
   const [registerAlert, setRegisterAlert] = useState(false);
   const [messageAlert, setMessageAlert] = useState('Registry problems!');
-
 
   function handleClearInputs() {
     setNameFirst('');
@@ -129,7 +125,7 @@ const RegisterContextProvider: React.FC<iRegisterContextProvider> = ({ children 
             first: nameFirst,
             last: nameLast
           },
-          birthday: (date as Date).getDate() + ((date as Date).getMonth() + 1) * 30 + (date as Date).getFullYear() * 365,
+          birthday: ((date as Date).getDate() + ((date as Date).getMonth() + 1) * 30 + (date as Date).getFullYear() * 365) * -1,
           cpf: CPF,
           rg: RG,
           adress: {
@@ -140,16 +136,13 @@ const RegisterContextProvider: React.FC<iRegisterContextProvider> = ({ children 
             state: adressState,
             cep: CEP
           }
-        }
+        },
+        refetchQueries: [{ query: GET_PERSONS, variables: { sortField: "first.name", limit: 5, offset: 0 } }]
       });
 
       setMessageAlert('Successfully registered!');
 
       handleClearInputs();
-
-      if (client) {
-        client.cache.reset();
-      }
     }
 
     setRegisterAlert(true);

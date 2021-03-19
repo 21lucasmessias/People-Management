@@ -3,7 +3,7 @@ import { RegisterContext } from '../../contexts/RegisterContext';
 
 import { Alert } from 'react-native';
 
-import { iCEP } from '../../types';
+import { iCEP } from '../../GraphQL/apolloComponents';
 
 import { AdressView, TextInput, LabelInput } from './RegisterCEP.styles';
 

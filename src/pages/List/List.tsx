@@ -1,15 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
-
-import { ListContext } from '../../contexts/ListContext';
-
-import { useQuery } from '@apollo/client';
-import { GET_PERSONS } from '../../GraphQL/query';
+import React, { useContext, useState } from 'react';
 
 import { Button } from 'react-native-paper';
 
 import Card from '../../components/Card/Card';
 
-import { iPerson, iStack, serverResponsePerson } from '../../types';
+import { iPerson, iPersons, iStack, usePersonsQuery } from '../../GraphQL/apolloComponents';
 import { StackScreenProps } from '@react-navigation/stack';
 
 import {
@@ -22,40 +17,48 @@ import {
 type Props = StackScreenProps<iStack, 'List'>;
 
 const List: React.FC<Props> = ({ navigation }) => {
-  const { setClient } = useContext(ListContext);
-  const [sortField, setSortField] = useState<[string | number]>(["name"]);
+  const [sortField, setSortField] = useState<string>("name.first");
+  const [offSet, setOffSet] = useState(0);
 
-  const { error, loading, data, fetchMore, client } = useQuery(GET_PERSONS, {
+  const {
+    error,
+    loading,
+    data,
+    fetchMore,
+    refetch,
+  } = usePersonsQuery({
     variables: {
       sortField: sortField,
-      limit: 2,
-      offset: 0,
-    }
+      limit: 5,
+      offset: offSet,
+    },
   });
 
   const endReachedHandle = () => {
     fetchMore({
       variables: {
-        offset: (data as serverResponsePerson).persons.length
+        offset: data ? data.persons.length : 0
+      },
+      updateQuery: (prev: iPersons, { fetchMoreResult }: any) => {
+        if (!fetchMoreResult) return prev;
+
+        return Object.assign({}, prev, {
+          feed: [...prev.persons, ...(fetchMoreResult as iPersons).persons]
+        });
       }
     })
   }
 
   const filterButtonHandle = (field: string) => {
-    setSortField([field]);
-    client.cache.reset();
+    refetch({ sortField: field, limit: 5, offset: 0 });
   }
-
-  useEffect(() => {
-    setClient(client);
-  }, [client])
 
   return (
     <Container>
       <Text>Order by</Text>
 
       <FilterView>
-        <Button mode='outlined' onPress={() => filterButtonHandle("name")}>
+        <Button mode='outlined' onPress={() => filterButtonHandle("name.first")}>
           <Text>Name</Text>
         </Button>
 
@@ -75,7 +78,7 @@ const List: React.FC<Props> = ({ navigation }) => {
           <Text>Error</Text>
         ) : (
           <FlatList
-            data={data ? (data as serverResponsePerson).persons : []}
+            data={data ? data.persons : []}
             renderItem={({ item }) => (
               <Card navigation={navigation} person={item as iPerson} />
             )}

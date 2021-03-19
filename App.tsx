@@ -11,8 +11,12 @@ import {
 
 import {
   ApolloProvider
-} from '@apollo/client';
-import { client } from './src/config/server';
+} from 'react-apollo-hooks';
+import ApolloClient from 'apollo-boost';
+
+const client = new ApolloClient({
+  uri: "http://192.168.100.170:4000"
+})
 
 export default function App() {
   let [fontsLoaded] = useFonts({

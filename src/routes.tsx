@@ -16,8 +16,7 @@ import Register from './pages/Register/Register';
 import List from './pages/List/List';
 import DetailScreen from './pages/DetailScreen/DetailScreen';
 import MyTabBar from './components/MyTabBar/MyTabBar';
-import { iStack, iPerson } from './types';
-import ListContextProvider from './contexts/ListContext';
+import { iStack, iPerson } from './GraphQL/apolloComponents';
 
 enableScreens();
 
@@ -101,12 +100,12 @@ const BottomTabNavigator = () => {
 
 const Routes: React.FC = () => {
   return (
-    <ListContextProvider>
+    <>
       <StatusBar style="auto" />
       <NavigationContainer >
         <BottomTabNavigator />
       </NavigationContainer>
-    </ListContextProvider>
+    </>
   );
 }
 

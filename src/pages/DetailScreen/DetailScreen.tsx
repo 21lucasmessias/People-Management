@@ -4,6 +4,7 @@ import { Image } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { SharedElement } from 'react-navigation-shared-element';
 
+import { useAlterPersonMutation, useDeletePersonMutation } from '../../GraphQL/apolloComponents';
 import CardTextContainer from '../../components/TextContainer/TextContainer';
 import DetailContainer from '../../components/DetailContainer/DetailContainer';
 
@@ -13,18 +14,53 @@ import {
   NameAgeView,
   InfoWrapper,
   Info,
+  ButtonContainer,
+  Button
 } from './DetailScreen.styles';
 
-import { iStack } from '../../types';
+import { iStack } from '../../GraphQL/apolloComponents';
 
 type Props = StackScreenProps<iStack, 'Details'>;
 
 const DetailScreen: React.FC<Props> = ({ route }) => {
   const { person } = route.params;
+  const [deletePerson] = useDeletePersonMutation();
+  const [alterPerson] = useAlterPersonMutation();
 
   const transformToAge = (birthday: number) => {
     var today = new Date();
     return Math.floor(((today.getDate() + (today.getMonth() + 1) * 30 + today.getFullYear() * 365) - birthday) / 365);
+  }
+
+  const handleAlterPerson = () => {
+    alterPerson({
+      variables: {
+        id: person.id,
+        name: {
+          first: person.name.first,
+          last: 'Z'//person.name.last
+        },
+        birthday: person.birthday,
+        cpf: person.cpf,
+        rg: person.rg,
+        adress: {
+          street: person.adress.street,
+          number: person.adress.number,
+          district: person.adress.district,
+          city: person.adress.city,
+          state: person.adress.state,
+          cep: person.adress.cep,
+        }
+      }
+    })
+  }
+
+  const handleDeletePerson = () => {
+    deletePerson({
+      variables: {
+        id: person.id
+      }
+    })
   }
 
   return (
@@ -47,25 +83,29 @@ const DetailScreen: React.FC<Props> = ({ route }) => {
 
       <InfoWrapper>
         <Info>
-          <DetailContainer message='RG' title={person.rg} />
-          <DetailContainer message='CPF' title={person.cpf} />
+          <DetailContainer title='RG' message={`${person.rg}`} />
+          <DetailContainer title='CPF' message={`${person.cpf}`} />
         </Info>
 
         <Info>
-          <DetailContainer message='CEP' title={person.adress.cep} />
-          <DetailContainer message='Number' title={person.adress.number} />
+          <DetailContainer title='CEP' message={`${person.adress.cep}`} />
+          <DetailContainer title='Number' message={`${person.adress.number}`} />
         </Info>
 
         <Info>
-          <DetailContainer message='City' title={person.adress.city} />
-          <DetailContainer message='State' title={person.adress.state} />
+          <DetailContainer title='City' message={`${person.adress.city}`} />
+          <DetailContainer title='State' message={`${person.adress.state}`} />
         </Info>
 
         <Info>
-          <DetailContainer message='District' title={person.adress.district} />
-          <DetailContainer message='Street' title={person.adress.street} />
+          <DetailContainer title='District' message={`${person.adress.district}`} />
+          <DetailContainer title='Street' message={`${person.adress.street}`} />
         </Info>
       </InfoWrapper>
+      <ButtonContainer>
+        <Button onPress={handleAlterPerson}>Alter</Button>
+        <Button onPress={handleDeletePerson}>Delete</Button>
+      </ButtonContainer>
     </Container>
   );
 }
