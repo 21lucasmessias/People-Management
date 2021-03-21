@@ -35,8 +35,14 @@ type Person {
   adress: Adress!
 }
 
+type Statistic {
+  id: ID!
+  birthday: Int!
+}
+
 type Query {
   persons(limit: Int!, offset: Int!): [Person!]!
+  statistics: [Statistic!]!
 }
 
 type Mutation {

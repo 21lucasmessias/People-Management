@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import StatisticsContextProvider, { StatisticsContext } from '../../contexts/StatisticsContext';
+
 import Header from '../../components/Header/Header';
+import Pie from '../../components/Statistics/Pie/Pie';
 
 import {
-  Container,
-  Text,
+  Container
 } from './Home.styles';
 
 const Home: React.FC = () => {
+  const { data } = useContext(StatisticsContext);
+
   return (
-    <Container>
+    <StatisticsContextProvider>
       <Header title="Statistics" />
-      <Text>Teste</Text>
-    </Container>
+      <Container>
+        <Pie />
+      </Container>
+    </StatisticsContextProvider>
   );
 }
 

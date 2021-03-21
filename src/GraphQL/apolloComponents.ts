@@ -1,6 +1,6 @@
 import * as ReactApolloHooks from "react-apollo-hooks";
 import { ALTER_PERSON, DELETE_PERSON, REGISTER_PERSON } from "./mutation";
-import { GET_PERSONS } from "./query";
+import { GET_PERSONS, GET_STATISTICS } from "./query";
 
 export type iCEP = {
   bairro: string,
@@ -147,6 +147,32 @@ export function usePersonsQuery(
 ) {
   return ReactApolloHooks.useQuery<PersonsQuery, PersonsQueryVariables>(
     GET_PERSONS,
+    baseOptions
+  );
+}
+
+/* -------------- Statistcs ----------- */
+
+export type iStatistic = {
+  id: string,
+  birthday: number,
+}
+
+export type iStatistics = {
+  statistics: Array<iStatistic>
+}
+
+export type StatisticsQueryVariables = {};
+
+export type StatisticsQuery = { __typename?: "Query" } & {
+  statistics: Array<{ __typename?: "Statistic" } & Pick<iStatistic, "id" | "birthday">>;
+};
+
+export function useStatisticsQuery(
+  baseOptions?: ReactApolloHooks.QueryHookOptions<StatisticsQueryVariables>
+) {
+  return ReactApolloHooks.useQuery<StatisticsQuery, StatisticsQueryVariables>(
+    GET_STATISTICS,
     baseOptions
   );
 }

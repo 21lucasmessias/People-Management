@@ -10,6 +10,8 @@ module.exports = {
       skip: offset,
       sort: "name.first"
     }),
+
+    statistics: () => Person.find({}, null, { sort: "birthday" })
   },
 
   Mutation: {

@@ -21,3 +21,11 @@ query getPersons ($limit: Int!, $offset: Int!) {
     }
   }
 }`;
+
+export const GET_STATISTICS = gql`
+query getStatistics {
+  statistics {
+    id
+    birthday
+  }
+}`;

@@ -32,6 +32,8 @@
     "react-native-safe-area-context": "3.1.9",
     "react-native-screens": "~2.15.2",
     "react-native-shared-element": "^0.7.0",
+    "react-native-svg": "12.1.0",
+    "react-native-svg-charts": "^5.4.0",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
     "react-navigation-shared-element": "^5.0.0-alpha1",
@@ -43,10 +45,12 @@
     "@types/react": "~16.9.35",
     "@types/react-dom": "~16.9.8",
     "@types/react-native": "~0.63.2",
+    "@types/react-native-svg-charts": "^5.0.7",
     "@types/react-native-vector-icons": "^6.4.6",
     "@types/react-navigation": "^3.4.0",
     "@types/styled-components": "^5.1.8",
     "@types/styled-components-react-native": "^5.1.1",
+    "@types/d3-path": "^2.0.0",
     "typescript": "~4.0.0"
   },
   "private": true
