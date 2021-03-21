@@ -1,7 +1,7 @@
 # Usage
-(https://expo.io/@fslucasfs/projects/Happy)
-Option 1: Use the option below QRCode "Open project in the browser", that will open a window with a android simulator.
-Option 2: Install Expo on your cellphone and scan the QRcode.
+(https://expo.io/@fslucasfs/projects/epm)
+HIGHLY RECOMMENDED OPTION: Install Expo on your cellphone and scan the QRcode.
+Alternative: Use the option below QRCode "Open project in the browser", that will open a window with a android simulator. You will need open a navigator on phone and paste the url of project, after this click on the button "open with expo".
 
 # Compile for yourself
 To compile this project on your pc, clone the repository and type on terminal:

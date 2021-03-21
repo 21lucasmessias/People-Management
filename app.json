@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "teste-react-estagio",
-    "slug": "teste-react-estagio",
+    "name": "eprecise-people-management",
+    "slug": "epm",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,6 +28,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "Project made with React Native and GraphQL",
+    "githubUrl": "https://github.com/21lucasmessias/ePrecise-People-Management"
   }
 }
