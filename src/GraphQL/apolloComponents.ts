@@ -34,7 +34,7 @@ export type RegisterPersonVariables = {
 }
 
 export type RegisterPersonMutation = { __typename?: "Mutation" } & {
-  registerPerson: { __typename?: "Person" } & Pick<RegisterPersonVariables, "adress" | "birthday" | "cpf" | "name" | "rg">;
+  registerPerson: { __typename?: "Person" } & Pick<iPerson, "id" | "adress" | "birthday" | "cpf" | "name" | "rg">;
 };
 
 export function useRegisterPersonMutation(
@@ -134,7 +134,6 @@ export type iPersons = {
 }
 
 export type PersonsQueryVariables = {
-  sortField: string,
   limit: number,
   offset: number,
 };

@@ -14,7 +14,6 @@ import {
 } from './Register.styles';
 
 const Register: React.FC = () => {
-
   return (
     <RegisterContextProvider>
       <Container>

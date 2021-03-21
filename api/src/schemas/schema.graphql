@@ -36,7 +36,7 @@ type Person {
 }
 
 type Query {
-  persons(sortField: String!, decrescent:Boolean, limit: Int!, offset: Int!, name: String, birthday: Int, cpf: String, rg: String, street: String, district: String, city: String, state: String, cep: String): [Person!]!
+  persons(limit: Int!, offset: Int!): [Person!]!
 }
 
 type Mutation {

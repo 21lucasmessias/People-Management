@@ -40,6 +40,21 @@ export const ALTER_PERSON = gql`
 mutation alterPerson($id: String!, $name: NameInput!, $birthday: Int!, $cpf: String!, $rg: String!, $adress: AdressInput!) {
   alterPerson(id: $id, name: $name, birthday: $birthday, cpf: $cpf, rg: $rg, adress: $adress){
     id
+    name{
+      first
+      last
+    }
+    birthday
+    cpf
+    rg
+    adress{
+      street
+      number
+      district
+      city
+      state
+      cep
+    }
   }
 }
 `;

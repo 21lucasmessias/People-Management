@@ -17,13 +17,15 @@ import List from './pages/List/List';
 import DetailScreen from './pages/DetailScreen/DetailScreen';
 import MyTabBar from './components/MyTabBar/MyTabBar';
 import { iStack, iPerson } from './GraphQL/apolloComponents';
+import ListContextProvider from './contexts/ListContext';
+import AlterContextProvider from './contexts/AlterContext';
 
 enableScreens();
 
 const Stack = createSharedElementStackNavigator<iStack>();
 
 const StackNavigator = () => (
-  <>
+  <AlterContextProvider>
     <Header title='Our People' />
     <Stack.Navigator headerMode='none'>
       <Stack.Screen name='List' component={List} />
@@ -35,16 +37,7 @@ const StackNavigator = () => (
           return [{
             id: `photo${(person as iPerson).cpf}`,
             animation: 'fade',
-          },
-          {
-            id: `name${(person as iPerson).cpf}`,
-            animation: 'fade-in',
-          },
-          {
-            id: `age${(person as iPerson).cpf}`,
-            animation: 'fade-in',
-          }
-          ];
+          }];
         }}
         options={() => ({
           cardStyleInterpolator: ({ current: { progress } }) => {
@@ -58,7 +51,7 @@ const StackNavigator = () => (
         })}
       />
     </Stack.Navigator>
-  </>
+  </AlterContextProvider>
 )
 
 const BottomTab = createBottomTabNavigator();
@@ -100,12 +93,12 @@ const BottomTabNavigator = () => {
 
 const Routes: React.FC = () => {
   return (
-    <>
+    <ListContextProvider>
       <StatusBar style="auto" />
       <NavigationContainer >
         <BottomTabNavigator />
       </NavigationContainer>
-    </>
+    </ListContextProvider>
   );
 }
 

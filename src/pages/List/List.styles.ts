@@ -6,7 +6,7 @@ export const Container = styled.View`
 
 export const Text = styled.Text`
   color: #476A6F;
-  font-size: 12px;
+  font-size: 10px;
   font-family: 'RobotoMono_400Regular';
 
   align-self: center;
@@ -14,9 +14,11 @@ export const Text = styled.Text`
 
 export const FilterView = styled.View`
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: flex-end;
 
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 25px;
 `;
 
 export const FlatList = styled.FlatList`

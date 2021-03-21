@@ -1,11 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
 import { Button } from 'react-native-paper';
+import { StackScreenProps } from '@react-navigation/stack';
 
 import Card from '../../components/Card/Card';
 
-import { iPerson, iPersons, iStack, usePersonsQuery } from '../../GraphQL/apolloComponents';
-import { StackScreenProps } from '@react-navigation/stack';
+import { iPerson, iPersons, iStack } from '../../GraphQL/apolloComponents';
+import { ListContext } from '../../contexts/ListContext';
 
 import {
   Container,
@@ -17,57 +18,29 @@ import {
 type Props = StackScreenProps<iStack, 'List'>;
 
 const List: React.FC<Props> = ({ navigation }) => {
-  const [sortField, setSortField] = useState<string>("name.first");
-  const [offSet, setOffSet] = useState(0);
-
-  const {
-    error,
-    loading,
-    data,
-    fetchMore,
-    refetch,
-  } = usePersonsQuery({
-    variables: {
-      sortField: sortField,
-      limit: 5,
-      offset: offSet,
-    },
-  });
+  const { data, loading, error, fetchMore, refetch } = useContext(ListContext);
 
   const endReachedHandle = () => {
     fetchMore({
       variables: {
+        limit: 5,
         offset: data ? data.persons.length : 0
       },
       updateQuery: (prev: iPersons, { fetchMoreResult }: any) => {
         if (!fetchMoreResult) return prev;
 
         return Object.assign({}, prev, {
-          feed: [...prev.persons, ...(fetchMoreResult as iPersons).persons]
+          persons: [...prev.persons, ...(fetchMoreResult as iPersons).persons]
         });
       }
     })
   }
 
-  const filterButtonHandle = (field: string) => {
-    refetch({ sortField: field, limit: 5, offset: 0 });
-  }
-
   return (
     <Container>
-      <Text>Order by</Text>
-
       <FilterView>
-        <Button mode='outlined' onPress={() => filterButtonHandle("name.first")}>
-          <Text>Name</Text>
-        </Button>
-
-        <Button mode='outlined' onPress={() => filterButtonHandle("cpf")}>
-          <Text>CPF</Text>
-        </Button>
-
-        <Button mode='outlined' onPress={() => filterButtonHandle("birthday")}>
-          <Text>Age</Text>
+        <Button mode='outlined' onPress={() => refetch({ limit: 5, offset: 0 })}>
+          <Text>Refresh</Text>
         </Button>
       </FilterView>
 

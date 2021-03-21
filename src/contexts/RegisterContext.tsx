@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useState } from "react";
-import { useRegisterPersonMutation } from "../GraphQL/apolloComponents";
+import { PersonsQuery, useRegisterPersonMutation } from "../GraphQL/apolloComponents";
 import { GET_PERSONS } from "../GraphQL/query";
 
 type iRegisterContextProvider = {
@@ -137,7 +137,38 @@ const RegisterContextProvider: React.FC<iRegisterContextProvider> = ({ children 
             cep: CEP
           }
         },
-        refetchQueries: [{ query: GET_PERSONS, variables: { sortField: "first.name", limit: 5, offset: 0 } }]
+        update: (store, { data }) => {
+          const personsData = store.readQuery<PersonsQuery>({
+            query: GET_PERSONS,
+            variables: {
+              limit: 5,
+              offset: 0
+            }
+          });
+
+          let newData = [];
+
+          personsData!.persons.forEach((person) => {
+            if (person.name.first > data!.registerPerson.name.first) {
+              newData.push(data!.registerPerson);
+            }
+            newData.push(person);
+          });
+          if (personsData!.persons.length == newData.length) {
+            newData.push(data!.registerPerson);
+          }
+
+          store.writeQuery<PersonsQuery>({
+            query: GET_PERSONS,
+            variables: {
+              limit: 5,
+              offset: 0
+            },
+            data: {
+              persons: newData
+            }
+          });
+        }
       });
 
       setMessageAlert('Successfully registered!');
