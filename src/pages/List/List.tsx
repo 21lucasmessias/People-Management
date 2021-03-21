@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { Button } from 'react-native-paper';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -19,6 +19,7 @@ type Props = StackScreenProps<iStack, 'List'>;
 
 const List: React.FC<Props> = ({ navigation }) => {
   const { data, loading, error, fetchMore, refetch } = useContext(ListContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   const endReachedHandle = () => {
     fetchMore({
@@ -38,12 +39,6 @@ const List: React.FC<Props> = ({ navigation }) => {
 
   return (
     <Container>
-      <FilterView>
-        <Button mode='outlined' onPress={() => refetch({ limit: 5, offset: 0 })}>
-          <Text>Refresh</Text>
-        </Button>
-      </FilterView>
-
       {loading ? (
         <Text>Loading</Text>
       ) : (
@@ -56,9 +51,16 @@ const List: React.FC<Props> = ({ navigation }) => {
               <Card navigation={navigation} person={item as iPerson} />
             )}
             keyExtractor={(_, index) => index.toString()}
-            refreshing
             showsVerticalScrollIndicator={false}
             onEndReached={endReachedHandle}
+            refreshing={isLoading}
+            onRefresh={() => {
+              setIsLoading(true);
+
+              refetch({ limit: 5, offset: 0 }).then(() => {
+                setIsLoading(false);
+              });
+            }}
           />
         )
       )}
