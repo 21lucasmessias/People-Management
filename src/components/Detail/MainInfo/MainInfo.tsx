@@ -24,8 +24,19 @@ const MainInfo: React.FC = () => {
 
   return (
     <Container>
-      <SharedElement id={`photo${CPF}`}>
-        <Image source={{ uri: 'https://github.com/21lucasmessias.png' }} style={{ width: 170, height: 170, borderRadius: 100 }} />
+      <SharedElement id={`${CPF}.image`}>
+        <Image
+          source={{ uri: 'https://github.com/21lucasmessias.png' }}
+          style={{
+            width: 160,
+            height: 160,
+            borderRadius: 100,
+            resizeMode: 'contain',
+            position: 'absolute',
+            bottom: -80,
+            right: 0,
+          }}
+        />
       </SharedElement>
 
       <NameAgeView>

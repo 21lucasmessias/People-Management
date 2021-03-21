@@ -5,14 +5,11 @@ export const Touchable = styled.TouchableOpacity`
 
 export const Container = styled.View`
   border: 2px solid #476A6F;
-  border-radius: 11px;
-  margin-left: 23px;
-  margin-right: 23px;
+  border-radius: 12px;
   margin-top: 12px;
 
-  padding-left: 20px;
 
-  height: 121px;
+  height: 125px;
 
   flex-direction: row;
 
@@ -22,6 +19,7 @@ export const Container = styled.View`
 export const Info = styled.View`
   flex-direction: column;
   padding-left: 20px;
+  width: 75%;
 `;
 
 export const AgeCPF = styled.View`

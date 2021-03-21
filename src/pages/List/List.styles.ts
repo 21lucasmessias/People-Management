@@ -1,7 +1,8 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  height: 90%;
+  height: 93%;
+  padding: 20px;
 `;
 
 export const Text = styled.Text`
@@ -18,7 +19,6 @@ export const FilterView = styled.View`
 
   padding-top: 5px;
   padding-bottom: 5px;
-  padding-right: 25px;
 `;
 
 export const FlatList = styled.FlatList`

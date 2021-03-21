@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { Image, Text } from 'react-native';
+import { Image, View } from 'react-native';
 
 import { StackNavigationProp } from '@react-navigation/stack'
 import { SharedElement } from 'react-navigation-shared-element';
@@ -64,8 +64,20 @@ const Card: React.FC<iCard> = ({ person, navigation }) => {
   return (
     <Touchable onPress={handleOpenPerson}>
       <Container>
-        <SharedElement id={`photo${person.cpf}`} >
-          <Image source={{ uri: 'https://github.com/21lucasmessias.png' }} style={{ width: 80, height: 80, borderRadius: 100, marginVertical: 15 }} />
+        <View style={{ flex: 1 }}></View>
+        <SharedElement id={`${person.cpf}.image`} style={{
+          width: 80,
+          height: 80,
+          borderRadius: 40,
+        }}>
+          <Image
+            source={{ uri: 'https://github.com/21lucasmessias.png' }}
+            style={{
+              width: 80,
+              height: 80,
+              borderRadius: 40,
+            }}
+          />
         </SharedElement>
         <Info>
           <TextContainer title='Name' message={`${person.name.first} ${person.name.last}`} />

@@ -4,11 +4,12 @@ import { TextInput as Input } from 'react-native-paper';
 export const Container = styled.View`
   flex-direction: row;
   align-items: center;
+  justify-content: flex-end;
 `;
 
 export const NameAgeView = styled.View`
+  width: 50%;
   flex-direction: column;
-  flex: 1;
   margin-left: 16px;
 `;
 

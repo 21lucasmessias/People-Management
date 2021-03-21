@@ -7,7 +7,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { enableScreens } from 'react-native-screens';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
 import Header from './components/Header/Header';
@@ -16,11 +15,9 @@ import Register from './pages/Register/Register';
 import List from './pages/List/List';
 import DetailScreen from './pages/DetailScreen/DetailScreen';
 import MyTabBar from './components/MyTabBar/MyTabBar';
-import { iStack, iPerson } from './GraphQL/apolloComponents';
+import { iStack } from './GraphQL/apolloComponents';
 import ListContextProvider from './contexts/ListContext';
 import AlterContextProvider from './contexts/AlterContext';
-
-enableScreens();
 
 const Stack = createSharedElementStackNavigator<iStack>();
 
@@ -35,8 +32,7 @@ const StackNavigator = () => (
         sharedElementsConfig={(route) => {
           const { person } = route.params;
           return [{
-            id: `photo${(person as iPerson).cpf}`,
-            animation: 'fade',
+            id: `${person.cpf}.image`
           }];
         }}
         options={() => ({
@@ -47,7 +43,11 @@ const StackNavigator = () => (
               }
             }
           },
-
+          gestureEnabled: false,
+          transitionSpec: {
+            open: { animation: "timing", config: { duration: 700 } },
+            close: { animation: "timing", config: { duration: 700 } },
+          }
         })}
       />
     </Stack.Navigator>

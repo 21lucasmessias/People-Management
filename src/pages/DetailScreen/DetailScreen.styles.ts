@@ -3,7 +3,7 @@ import { Button as Butt } from 'react-native-paper';
 
 export const Container = styled.ScrollView`
   padding: 20px;
-  height: 90%;
+  height: 93%;
 `
 
 export const ButtonContainer = styled.View`
