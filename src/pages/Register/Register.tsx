@@ -3,9 +3,9 @@ import React from 'react';
 import RegisterContextProvider from '../../contexts/RegisterContext';
 
 import Header from '../../components/Header/Header';
-import RegisterCEP from '../../components/RegisterCEP/RegisterCEP';
-import RegisterProfile from '../../components/RegisterProfile/RegisterProfile';
-import RegisterButtons from '../../components/RegisterButtons/RegisterButtons';
+import RegisterCEP from '../../components/Register/RegisterCEP/RegisterCEP';
+import RegisterProfile from '../../components/Register/RegisterProfile/RegisterProfile';
+import RegisterButtons from '../../components/Register/RegisterButtons/RegisterButtons';
 
 import {
   Container,

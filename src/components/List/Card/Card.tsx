@@ -14,8 +14,8 @@ import {
   AgeCPF
 } from './Card.styles'
 
-import { iPerson, iStack } from '../../GraphQL/apolloComponents';
-import { AlterContext } from '../../contexts/AlterContext';
+import { iPerson, iStack } from '../../../GraphQL/apolloComponents';
+import { AlterContext } from '../../../contexts/AlterContext';
 
 type iCard = {
   person: iPerson,

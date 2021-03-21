@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import DatePicker from '../DatePicker/DatePicker';
-import { RegisterContext } from '../../contexts/RegisterContext';
+import { RegisterContext } from '../../../contexts/RegisterContext';
 
 import {
   LabelInput,

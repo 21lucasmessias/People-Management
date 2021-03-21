@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Image } from 'react-native';
 import { SharedElement } from 'react-navigation-shared-element';
 import { AlterContext } from '../../../contexts/AlterContext';
-import DatePicker from '../../DatePicker/DatePicker';
+import DatePicker from '../../Register/DatePicker/DatePicker';
 
 import { Container, NameAgeView, TextInput } from './MainInfo.styles';
 

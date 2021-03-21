@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { Button } from 'react-native-paper';
 import { StackScreenProps } from '@react-navigation/stack';
 
-import Card from '../../components/Card/Card';
+import Card from '../../components/List/Card/Card';
 
 import { iPerson, iPersons, iStack } from '../../GraphQL/apolloComponents';
 import { ListContext } from '../../contexts/ListContext';

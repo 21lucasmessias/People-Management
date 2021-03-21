@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { RegisterContext } from '../../contexts/RegisterContext';
+import { RegisterContext } from '../../../contexts/RegisterContext';
 
 import { Button, ButtonsView, Alert } from './RegisterButtons.styles';
 

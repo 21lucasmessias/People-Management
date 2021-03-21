@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { RegisterContext } from '../../contexts/RegisterContext';
+import { RegisterContext } from '../../../contexts/RegisterContext';
 
 import { Alert } from 'react-native';
 
-import { iCEP } from '../../GraphQL/apolloComponents';
+import { iCEP } from '../../../GraphQL/apolloComponents';
 
 import { AdressView, TextInput, LabelInput } from './RegisterCEP.styles';
 
