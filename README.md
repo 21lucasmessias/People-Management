@@ -1,21 +1,21 @@
 # Usage
 https://expo.io/@fslucasfs/projects/epm
--HIGHLY RECOMMENDED OPTION: Install Expo on your cellphone and scan the QRcode.
--Alternative: Use the option below QRCode "Open project in the browser", that will open a window with a android simulator. You will need open a navigator on phone and paste the url of project, after this click on the button "open with expo".
+- HIGHLY RECOMMENDED OPTION: Install Expo on your cellphone and scan the QRcode.
+- Alternative: Use the option below QRCode "Open project in the browser", that will open a window with a android simulator. You will need open a navigator on phone and paste the url of project, after this click on the button "open with expo".
 
 # Compile for yourself
 To compile this project on your pc, clone the repository and type on terminal:
 
--- This command will install all the dependencies
-$ yarn
--- After install all the depencies run:
+- This command will install all the dependencies
+ $ yarn
+- After install all the depencies run:
 $ yarn start
--- Follow the instructions showed on your terminal to open the app on Expo
+- Follow the instructions showed on your terminal to open the app on Expo
 
 # Possible problems
-If the app don't load informations, this means a server are not online.
+- If the app don't load informations, this means a server are not online.
 
-If you wanna use a local db, look for commit f377478 and use docker-compose.
+- If you wanna use a local db, look for commit f377478 and use docker-compose.
 
 
 # Layout
