@@ -15,7 +15,7 @@ import {
 import ApolloClient from 'apollo-boost';
 
 const client = new ApolloClient({
-  uri: "http://192.168.100.170:4000"
+  uri: "https://eprecise-people-management.herokuapp.com/"
 })
 
 export default function App() {

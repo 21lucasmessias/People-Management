@@ -1,3 +1,23 @@
+# Usage
+(https://expo.io/@fslucasfs/projects/Happy)
+Option 1: Use the option below QRCode "Open project in the browser", that will open a window with a android simulator.
+Option 2: Install Expo on your cellphone and scan the QRcode.
+
+# Compile for yourself
+To compile this project on your pc, clone the repository and type on terminal:
+
+-- This command will install all the dependencies
+$ yarn
+-- After install all the depencies run:
+$ yarn start
+-- Follow the instructions showed on your terminal to open the app on Expo
+
+# Possible problems
+If the app don't load informations, this means a server are not online.
+
+If you wanna use a local db, look for commit f377478 and use docker-compose.
+
+
 # Layout
 [](https://www.figma.com/file/Z5If19g2xDGVp6UE88QP3d/e-Precise?node-id=0%3A1&viewport=311%2C240%2C0.6794678568840027)
 
