@@ -16,8 +16,8 @@ import {
 const Register: React.FC = () => {
   return (
     <RegisterContextProvider>
+      <Header title="Register" />
       <Container>
-        <Header title="Register" />
         <Form>
           <Section>
             <RegisterProfile />
