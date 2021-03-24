@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container, Text } from './Header.styles';
+import { Container, StatusBar, Text } from './Header.styles';
 
 interface iHeader {
   title: string;
@@ -8,11 +8,14 @@ interface iHeader {
 
 const Header: React.FC<iHeader> = ({ title }) => {
   return (
-    <Container>
-      <Text>
-        {title}
-      </Text>
-    </Container>
+    <>
+      <StatusBar />
+      <Container>
+        <Text>
+          {title}
+        </Text>
+      </Container>
+    </>
   );
 }
 

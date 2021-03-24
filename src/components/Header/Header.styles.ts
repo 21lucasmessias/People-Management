@@ -1,18 +1,18 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  height: 80px;
-  width: 100%;
-
-  padding-top: 15px;
-
+  height: 6%;
+  
   background-color: #476A6F;
 
   align-items: center;
   justify-content: center;
+`;
 
-  border: 0px solid #000000;
-  border-bottom-width: 1px;
+export const StatusBar = styled.View`
+  height: 3%;
+
+  background-color: #476A6F;
 `;
 
 export const Text = styled.Text`
