@@ -1,22 +1,22 @@
 import styled from 'styled-components/native';
+import { height } from '../../../assets/dimensions';
 
 export const Container = styled.View`
-  height: 6%;
+  height: ${`${height * 0.08}px`};
   
   background-color: #476A6F;
-
-  align-items: center;
+  padding-left: 8px;
   justify-content: center;
 `;
 
 export const StatusBar = styled.View`
-  height: 3%;
+  height: ${`${height * 0.03}px`};
 
   background-color: #476A6F;
 `;
 
 export const Text = styled.Text`
-  color: #FFFFFF;
-  font-size: 24px;
+  color: #CCC;
+  font-size: 26px;
   font-family: 'RobotoMono_400Regular';
 `;
