@@ -17,7 +17,7 @@ const BottomTabNavigator: React.FC = () => {
       tabBarOptions={{
         showLabel: false,
         style: {
-          backgroundColor: 'rgb(244,244,244)',
+          backgroundColor: 'rgba(244,244,244, 0.9)',
           elevation: 0,
           bottom: 0,
           borderTopWidth: 0,

@@ -1,8 +1,10 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  height: 93%;
-  padding: 20px;
+  height: 100%;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
 `;
 
 export const Text = styled.Text`
